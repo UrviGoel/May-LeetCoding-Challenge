@@ -1,0 +1,29 @@
+class Solution {
+public:
+    
+    int binarysearch(unsigned int s,unsigned int e, int k){
+        if(s>=e){
+            if(isBadVersion(e)){
+                return e;
+            }
+            return k;
+        }
+        int mid=(s+e)/2;
+        if(isBadVersion(mid)){
+            k=min(k,mid);
+            return binarysearch(s,mid-1,k);
+        }
+        else{
+            return binarysearch(mid+1,e,k);
+        }
+        
+    }
+    
+    int firstBadVersion(int n) {
+        
+        if(n==1){
+            return 1;
+        }
+        return binarysearch(1,n,INT_MAX);
+    }
+};
