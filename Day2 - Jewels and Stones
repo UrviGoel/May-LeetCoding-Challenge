@@ -1,0 +1,17 @@
+class Solution {
+public:
+    int numJewelsInStones(string J, string S) {
+        unordered_map <int,int> h;
+        
+        for(int i=0;i<S.length();i++){
+            h[S[i]]++;
+        }
+        int count=0;
+        for(int i=0;i<J.length();i++){
+            if(h.find(J[i])!=h.end()){
+                count+=h[J[i]];
+            }
+        }
+        return count;
+    }
+};
