@@ -1,0 +1,40 @@
+class Solution {
+public:
+
+    int level(TreeNode* root, int x, int lev){
+        if(root==NULL){
+            return 0;
+        }
+        if(root->val==x){
+            return lev;
+        }
+        
+        if(root->left){
+            int l= level(root->left,x,lev+1);
+            if(l!=0) return l;
+        }
+        
+        return level(root->right,x,lev+1);
+        
+    }
+    
+    bool isSiblings(TreeNode* root,int x, int y){
+        if(root==NULL){
+            return false;
+        }
+        
+        if(root->left && root->right){
+            if((root->left->val==x && root->right->val==y) || (root->left->val==y && root->right->val==x)) return true;
+        }
+
+        return (isSiblings(root->left,x,y) || isSiblings(root->right,x,y));        
+    }
+    
+    bool isCousins(TreeNode* root, int x, int y) {
+       
+        if((level(root,x,0)==level(root,y,0)) && (!isSiblings(root,x,y))){
+            return true;
+        }
+        return false;
+    }
+};
