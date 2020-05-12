@@ -1,0 +1,31 @@
+class Solution {
+public:
+    int findNonDup(vector<int>& nums, int s, int e){
+        if(s<e){
+            int mid=(s+e)/2;
+            if(nums[mid]==nums[mid-1]){
+                if(mid%2==0){
+                    return findNonDup(nums,s,mid-2);
+                }
+                return findNonDup(nums,mid+1,e);
+            }
+            else if(nums[mid]==nums[mid+1]){
+                if(mid%2==0){
+                    return findNonDup(nums,mid+2,e);
+                }
+                return findNonDup(nums,s,mid-1);
+            }
+            else{
+                return nums[mid];
+            }
+        }
+        return nums[s];
+    }
+    
+    int singleNonDuplicate(vector<int>& nums) {
+        if(nums.size()==1){
+            return nums[0];
+        }
+        return findNonDup(nums,0,nums.size()-1);
+    }
+};
