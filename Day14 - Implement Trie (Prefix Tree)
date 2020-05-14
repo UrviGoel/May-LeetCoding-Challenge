@@ -1,0 +1,64 @@
+class Trie {
+    int R=26;
+    vector<Trie*> children;
+    bool isTerminating;
+public:
+    /** Initialize your data structure here. */
+    Trie() {
+        ios::sync_with_stdio(0);
+        cin.tie(0);
+        this->children=vector<Trie*>(R,nullptr);
+        isTerminating=false;
+    }
+    
+    /** Inserts a word into the trie. */
+    void insert(string word) {
+        Trie* temp=this;
+        for(char c:word){
+            int idx=c-'a';
+            if(temp->children[idx]==nullptr){
+                temp->children[idx]=new Trie();
+            }
+            temp=temp->children[idx];
+        }
+        temp->isTerminating=true;
+    }
+    
+    /** Returns if the word is in the trie. */
+    bool search(string word) {
+        Trie* temp=this;
+        for(char c:word){
+            int idx=c-'a';
+            if(temp->children[idx]!=nullptr){
+                temp=temp->children[idx];
+            }
+            else{
+                return false;
+            }
+        }
+        return temp->isTerminating;
+    }
+    
+    /** Returns if there is any word in the trie that starts with the given prefix. */
+    bool startsWith(string prefix) {
+        Trie* temp=this;
+        for(char c:prefix){
+            int idx=c-'a';
+            if(temp->children[idx]!=nullptr){
+                temp=temp->children[idx];
+            }
+            else{
+                return false;
+            }
+        }
+        return true;
+    }
+};
+
+/**
+ * Your Trie object will be instantiated and called as such:
+ * Trie* obj = new Trie();
+ * obj->insert(word);
+ * bool param_2 = obj->search(word);
+ * bool param_3 = obj->startsWith(prefix);
+ */
