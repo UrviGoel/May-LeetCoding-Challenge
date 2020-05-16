@@ -1,28 +1,26 @@
-/**
- * Definition for singly-linked list.
- * struct ListNode {
- *     int val;
- *     ListNode *next;
- *     ListNode(int x) : val(x), next(NULL) {}
- * };
- */
 class Solution {
 public:
-    ListNode* oddEvenList(ListNode* head) {
-        if(head==NULL || head->next==NULL){
-            return head;
+    int maxSubarraySumCircular(vector<int>& A) {
+       
+        int min_sum=A[0]; 
+        int max_sum=A[0];
+        int curr_max=A[0],curr_min=A[0];
+        int total_sum=A[0];
+        
+        for(int i=1;i<A.size();i++){
+            total_sum+=A[i];
+            
+            curr_max=max(curr_max+A[i],A[i]);
+            curr_min=min(curr_min+A[i],A[i]);
+            
+            min_sum=min(min_sum,curr_min);
+            max_sum=max(max_sum,curr_max);
+            
         }
-        ListNode* odd=head;
-        ListNode* even=head->next;
-        ListNode* first_even=head->next;
-
-        while (even!=NULL && even->next!=NULL) {
-            odd->next=even->next;
-            odd=odd->next;
-            even->next=odd->next;
-            even=even->next;
+        
+        if(max_sum<0){
+            return max_sum;
         }
-        odd->next=first_even;       
-        return head;
+        return max(max_sum,total_sum-min_sum);
     }
 };
