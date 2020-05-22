@@ -1,0 +1,27 @@
+class Solution {
+public:
+    
+    static bool myCompare(const pair<char,int>& p1,const pair<char,int>& p2){
+        return p1.second > p2.second;
+    }
+ 
+   string frequencySort(string s) {
+        
+       unordered_map<char,int> h;
+       vector< pair<char,int> > v;
+       
+        for(auto c:s){
+            h[c]++;
+        }
+       
+        copy(h.begin(),h.end(),back_inserter(v));
+        sort(v.begin(),v.end(),myCompare);
+       
+       string ans="";
+       for(auto ele:v){
+               ans+= string(ele.second,ele.first);
+       }
+       
+       return ans;
+    }
+};
