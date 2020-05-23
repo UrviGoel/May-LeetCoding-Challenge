@@ -1,0 +1,36 @@
+class Solution {
+public:
+    vector<vector<int>> intervalIntersection(vector<vector<int>>& A, vector<vector<int>>& B) {
+       
+        vector<vector<int> > ans;
+        
+        int a=0;
+        int b=0;
+        
+        while(a<A.size() && b<B.size()){
+            
+            vector<int> v;
+            int s=max(A[a][0],B[b][0]);
+            int e=min(A[a][1],B[b][1]);
+            
+            if(s<=e){
+                v.push_back(s);
+                v.push_back(e);
+                ans.push_back(v);
+            }
+            
+            if(A[a][1]<B[b][1]){
+                a++;
+            }
+            else if(A[a][1]>B[b][1]){
+                b++;
+            }
+            else{
+                a++;
+                b++;
+            }
+        }
+        
+        return ans;
+    }
+};
