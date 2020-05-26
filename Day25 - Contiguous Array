@@ -1,0 +1,33 @@
+class Solution {
+public:
+    int findMaxLength(vector<int>& nums) {
+        
+        unordered_map<int,int> m;
+        vector<int> running;
+        int count=0;
+        
+        for(auto ele:nums){
+            if(ele==1){
+                count++;
+            }
+            else{
+                count--;
+            }
+            running.push_back(count);
+        }
+        
+        int maxlen=0;
+        m[0]=-1;
+        
+        for(int i=0;i<running.size();i++){
+            if(m.find(running[i])!=m.end()){
+                int len=i-m[running[i]];
+                maxlen=max(maxlen,len);
+            }
+            else{
+                m[running[i]]=i;
+            }
+        }
+        return maxlen;
+    }
+};
